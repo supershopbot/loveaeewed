@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dla mojej myszki ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd6e7, #fff0f6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      color: #333;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+      padding: 25px;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 35px 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 {
+      color: #e84376;
+      margin-bottom: 15px;
+      font-size: 32px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #e84376;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 17px;
+    }
+
+    input {
+      width: 180px;
+      padding: 14px;
+      border: 2px solid #ff9fbd;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 22px;
+      letter-spacing: 8px;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 25px;
+      border-radius: 15px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin: 6px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .pink {
+      background: #ff5c91;
+      color: white;
+    }
+
+    .light {
+      background: #ffd1df;
+      color: #9d3157;
+    }
+
+    .error {
+      color: #e74c3c;
+      min-height: 25px;
+      font-size: 14px;
+    }
+
+    .big-love {
+      font-size: 45px;
+      font-weight: bold;
+      color: #e84376;
+      margin: 25px 0;
+      animation: pulse 1s infinite;
+    }
+
+    .question {
+      font-size: 24px;
+      margin: 25px 0;
+      font-weight: bold;
+    }
+
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .answers button {
+      width: 100%;
+      background: #ffe1eb;
+      color: #9d3157;
+    }
+
+    .answers button:hover {
+      background: #ffc4d7;
+    }
+
+    #result {
+      font-size: 25px;
+      font-weight: bold;
+      color: #e84376;
+      margin-top: 25px;
+    }
+
+    .heart {
+      position: fixed;
+      pointer-events: none;
+      animation: floatUp 4s linear forwards;
+      font-size: 25px;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      animation: confettiFall 3s linear forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes confettiFall {
+      from {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- EKRAN PIN -->
+  <section id="pinScreen" class="screen active">
+    <div class="card">
+      <h1>🔐 Sekretna strona</h1>
+      <p>Dla mojej myszki ❤️</p>
+
+      <input
+        id="pinInput"
+        type="password"
+        maxlength="4"
+        placeholder="••••"
+      >
+
+      <br>
+
+      <button class="pink" onclick="checkPin()">
+        Otwórz ❤️
+      </button>
+
+      <div id="pinError" class="error"></div>
+    </div>
+  </section>
+
+
+  <!-- EKRAN KOCHASZ MNIE -->
+  <section id="loveScreen" class="screen">
+    <div class="card">
+      <h1>Myszko... 🥹❤️</h1>
+
+      <div class="question">
+        Kochasz mnie?
+      </div>
+
+      <button class="pink" onclick="yesLove()">
+        TAK ❤️
+      </button>
+
+      <button class="light" onclick="noLove()">
+        NIE
+      </button>
+    </div>
+  </section>
+
+
+  <!-- EKRAN PO TAK -->
+  <section id="yesScreen" class="screen">
+    <div class="card">
+      <div class="big-love">
+        JA CIEBIE TEŻ<br>
+        MYSZKOOOOO ❤️
+      </div>
+
+      <p>
+        Wiedziałem 🤭❤️
+      </p>
+
+      <button class="pink" onclick="showQuiz()">
+        🎮 Zagraj w grę miłosną
+      </button>
+    </div>
+  </section>
+
+
+  <!-- QUIZ -->
+  <section id="quizScreen" class="screen">
+    <div class="card">
+
+      <h1>🎮 Gra miłosna</h1>
+
+      <p id="questionNumber"></p>
+
+      <div id="quizQuestion" class="question"></div>
+
+      <div id="answers" class="answers"></div>
+
+      <div id="result"></div>
+
+    </div>
+  </section>
+
+
+  <script>
+
+    /* =========================
+       USTAWIENIA
+    ========================= */
+
+    // ZMIEŃ PIN TUTAJ
+    const correctPIN = "1234";
+
+
+    /* =========================
+       ZMIANA EKRANÓW
+    ========================= */
+
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      document.getElementById(id).classList.add("active");
+    }
+
+
+    /* =========================
+       PIN
+    ========================= */
+
+    function checkPin() {
+
+      const pin = document.getElementById("pinInput").value;
+      const error = document.getElementById("pinError");
+
+      if (pin === correctPIN) {
+
+        error.textContent = "";
+
+        showScreen("loveScreen");
+
+        createHearts();
+
+      } else {
+
+        error.textContent = "Nieee 😭 zły PIN";
+
+      }
+    }
+
+
+    /* =========================
+       KOCHASZ MNIE
+    ========================= */
+
+    function yesLove() {
+
+      showScreen("yesScreen");
+
+      createConfetti();
+      createHearts();
+
+    }
+
+
+    function noLove() {
+
+      // Nic nie ucieka 😂
+      // Przycisk normalnie zostaje.
+
+      alert("Dobrze, przyjęto odpowiedź 😭❤️");
+
+    }
+
+
+    /* =========================
+       QUIZ
+    ========================= */
+
+    const questions = [
+
+      {
+        question: "Jak najczęściej nazywam Tereskę?",
+        answers: [
+          "Myszką 🐭",
+          "Kaczką 🦆",
+          "Żabką 🐸",
+          "Kotem 🐱"
+        ],
+        correct: 0
+      },
+
+      {
+        question: "W co lubimy razem grać?",
+        answers: [
+          "Roblox 🎮",
+          "Minecraft ⛏️",
+          "FIFA ⚽",
+          "Fortnite 🔫"
+        ],
+        correct: 0
+      },
+
+      {
+        question: "Jak nazywam Tereskę?",
+        answers: [
+          "Myszką ❤️",
+          "Szefem 💼",
+          "Królową ziemniaków 🥔",
+          "NPC 💀"
+        ],
+        correct: 0
+      },
+
+      {
+        question: "Co najbardziej lubię dostawać od Tereski?",
+        answers: [
+          "Zdjęcia 🥹",
+          "Kartki z matematyki 📚",
+          "Mandaty 🚔",
+          "Kamienie 🪨"
+        ],
+        correct: 0
+      },
+
+      {
+        question: "Jak bardzo ją lubię?",
+        answers: [
+          "Bardzo ❤️",
+          "Trochę",
+          "Nie wiem",
+          "Kim jesteś?"
+        ],
+        correct: 0
+      }
+
+    ];
+
+
+    let currentQuestion = 0;
+    let score = 0;
+
+
+    function showQuiz() {
+
+      currentQuestion = 0;
+      score = 0;
+
+      showScreen("quizScreen");
+
+      loadQuestion();
+
+    }
+
+
+    function loadQuestion() {
+
+      const question = questions[currentQuestion];
+
+      document.getElementById("questionNumber").textContent =
+        `Pytanie ${currentQuestion + 1} / ${questions.length}`;
+
+      document.getElementById("quizQuestion").textContent =
+        question.question;
+
+      const answersDiv = document.getElementById("answers");
+
+      answersDiv.innerHTML = "";
+
+      document.getElementById("result").textContent = "";
+
+
+      question.answers.forEach((answer, index) => {
+
+        const button = document.createElement("button");
+
+        button.textContent = answer;
+
+        button.onclick = () => checkAnswer(index);
+
+        answersDiv.appendChild(button);
+
+      });
+
+    }
+
+
+    function checkAnswer(index) {
+
+      const question = questions[currentQuestion];
+
+      if (index === question.correct) {
+        score++;
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+
+        loadQuestion();
+
+      } else {
+
+        finishQuiz();
+
+      }
+
+    }
+
+
+    function finishQuiz() {
+
+      document.getElementById("quizQuestion").textContent =
+        "Koniec gry! ❤️";
+
+      document.getElementById("questionNumber").textContent = "";
+
+      document.getElementById("answers").innerHTML = "";
+
+      let message = "";
+
+      if (score === questions.length) {
+
+        message =
+          `💖 ${score}/${questions.length}<br><br>
+           TERESKA, TY MNIE ZNASZ ZA DOBRZE 😭❤️`;
+
+      } else if (score >= 3) {
+
+        message =
+          `❤️ ${score}/${questions.length}<br><br>
+           Całkiem dobrze, myszko 🥹`;
+
+      } else {
+
+        message =
+          `😭 ${score}/${questions.length}<br><br>
+           Musimy więcej razem pograć XDDD`;
+
+      }
+
+      document.getElementById("result").innerHTML = message;
+
+      createConfetti();
+
+    }
+
+
+    /* =========================
+       SERDUSZKA
+    ========================= */
+
+    function createHearts() {
+
+      for (let i = 0; i < 20; i++) {
+
+        setTimeout(() => {
+
+          const heart = document.createElement("div");
+
+          heart.className = "heart";
+
+          heart.textContent = "❤️";
+
+          heart.style.left =
+            Math.random() * 100 + "vw";
+
+          heart.style.bottom = "-30px";
+
+          heart.style.animationDuration =
+            (3 + Math.random() * 3) + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 6000);
+
+        }, i * 100);
+
+      }
+
+    }
+
+
+    /* =========================
+       KONFETTI
+    ========================= */
+
+    function createConfetti() {
+
+      for (let i = 0; i < 100; i++) {
+
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+
+        piece.style.left =
+          Math.random() * 100 + "vw";
+
+        piece.style.top = "-20px";
+
+        piece.style.background =
+          `hsl(${Math.random() * 360}, 80%, 60%)`;
+
+        piece.style.animationDuration =
+          (2 + Math.random() * 2) + "s";
+
+        piece.style.animationDelay =
+          Math.random() * 1 + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => {
+          piece.remove();
+        }, 5000);
+
+      }
+
+    }
+
+
+    /* =========================
+       ENTER = PIN
+    ========================= */
+
+    document.getElementById("pinInput").addEventListener("keydown", function(event) {
+
+      if (event.key === "Enter") {
+        checkPin();
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
