@@ -3,152 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dla mojej myszki ❤️</title>
+<title>Dla Tereski ❤️</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
 body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffd1e1, #fff0f6, #ffc1d8);
-    background-size: 300% 300%;
-    animation: backgroundMove 8s ease infinite;
+    background: linear-gradient(135deg, #ffb6d5, #ffe6f0, #ff8fbd);
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
-.screen {
-    display: none;
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-}
-
-.screen.active {
-    display: block;
-    animation: screenIn 0.6s ease;
-}
-
-.card {
-    background: rgba(255,255,255,0.94);
-    padding: 35px 25px;
+.box {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    padding: 30px;
     border-radius: 30px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(180,60,110,0.25);
-    backdrop-filter: blur(10px);
-    animation: cardFloat 4s ease-in-out infinite;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: appear 0.7s ease;
 }
 
 h1 {
-    color: #e83e78;
-    margin-bottom: 15px;
+    color: #ed3d7b;
 }
 
 p {
+    font-size: 18px;
     color: #555;
-    font-size: 17px;
 }
 
 input {
-    width: 180px;
+    width: 150px;
     padding: 14px;
-    border: 2px solid #ff82aa;
     border-radius: 15px;
+    border: 2px solid #ff70a7;
     text-align: center;
-    font-size: 24px;
-    letter-spacing: 8px;
-    outline: none;
+    font-size: 25px;
+    letter-spacing: 7px;
 }
 
 button {
-    border: none;
-    padding: 14px 24px;
-    margin: 7px;
-    border-radius: 16px;
+    border: 0;
+    border-radius: 15px;
+    padding: 14px 25px;
+    margin: 8px;
     font-size: 17px;
     cursor: pointer;
     transition: 0.25s;
 }
 
 button:hover {
-    transform: scale(1.07);
+    transform: scale(1.08);
 }
 
 .pink {
-    background: #ff5c91;
+    background: #ff4f91;
     color: white;
 }
 
-.light {
-    background: #ffd3e1;
-    color: #a52f58;
+.white {
+    background: #ffd4e3;
+    color: #a82f5d;
+}
+
+.hidden {
+    display: none;
 }
 
 .question {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: bold;
-    color: #e83e78;
+    color: #ed3d7b;
     margin: 25px 0;
 }
 
-.answers {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 .answers button {
+    display: block;
     width: 100%;
-    background: #ffe1eb;
-    color: #9c3158;
+    background: #ffe1ec;
+    color: #9d3159;
 }
 
 .answers button.correct {
-    background: #91e7a5;
-    color: #17612b;
-    transform: scale(1.05);
+    background: #83e69b;
+    color: #176126;
 }
 
 .answers button.wrong {
-    background: #ff8d9b;
-    color: #791d2b;
+    background: #ff8795;
+    color: #751c2b;
     animation: shake 0.5s;
 }
 
-.big-love {
-    font-size: 42px;
+.love {
+    font-size: 38px;
     font-weight: bold;
-    color: #e83e78;
-    line-height: 1.2;
-    animation: lovePulse 1s infinite;
-}
-
-#result {
-    margin-top: 25px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #e83e78;
-}
-
-.error {
-    height: 25px;
-    color: #e53950;
-    margin-top: 8px;
+    color: #ed3d7b;
+    animation: pulse 1s infinite;
 }
 
 .heart {
     position: fixed;
-    bottom: -40px;
-    font-size: 25px;
+    bottom: -50px;
+    font-size: 30px;
+    animation: fly 4s linear forwards;
     pointer-events: none;
-    animation: heartUp 4s linear forwards;
-    z-index: 9999;
 }
 
 .confetti {
@@ -156,69 +120,60 @@ button:hover {
     top: -20px;
     width: 10px;
     height: 10px;
+    animation: fall 3s linear forwards;
     pointer-events: none;
-    z-index: 9999;
-    animation: confettiDown 3s linear forwards;
 }
 
-.floating {
-    position: fixed;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-    font-size: 35px;
+#message {
+    min-height: 30px;
+    margin-top: 10px;
+    color: #e83d67;
     font-weight: bold;
-    z-index: 10000;
-    animation: floating 1s ease forwards;
-    pointer-events: none;
 }
 
-.good {
-    color: #20a84a;
+#score {
+    color: #e83d67;
+    font-weight: bold;
 }
 
-.bad {
-    color: #e53950;
-}
-
-@keyframes backgroundMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes screenIn {
+@keyframes appear {
     from {
         opacity: 0;
-        transform: translateY(30px) scale(0.95);
+        transform: scale(0.8);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1);
     }
 }
 
-@keyframes cardFloat {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-}
-
-@keyframes lovePulse {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
+@keyframes pulse {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
 }
 
 @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    20% { transform: translateX(-12px); }
-    40% { transform: translateX(12px); }
-    60% { transform: translateX(-8px); }
-    80% { transform: translateX(8px); }
+    0%,100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+    75% {
+        transform: translateX(-10px);
+    }
 }
 
-@keyframes heartUp {
+@keyframes fly {
     from {
-        transform: translateY(0) rotate(0);
+        transform: translateY(0) rotate(0deg);
         opacity: 1;
     }
     to {
@@ -227,29 +182,12 @@ button:hover {
     }
 }
 
-@keyframes confettiDown {
+@keyframes fall {
     from {
-        transform: translateY(0) rotate(0);
-        opacity: 1;
+        transform: translateY(0) rotate(0deg);
     }
     to {
         transform: translateY(110vh) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-@keyframes floating {
-    0% {
-        opacity: 0;
-        transform: translate(-50%,-50%) scale(0.5);
-    }
-    30% {
-        opacity: 1;
-        transform: translate(-50%,-50%) scale(1.2);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%,-100%) scale(1);
     }
 }
 </style>
@@ -258,156 +196,94 @@ button:hover {
 <body>
 
 <!-- PIN -->
-<section id="pinScreen" class="screen active">
-    <div class="card">
-        <h1>🔐 Sekretna strona</h1>
-        <p>Dla mojej myszki ❤️</p>
+<div id="pinPage" class="box">
 
-        <input id="pin" type="password" maxlength="4" placeholder="••••">
+    <h1>🔐 Sekretna strona ❤️</h1>
 
-        <br><br>
+    <p>Dla mojej myszki 🐭</p>
 
-        <button class="pink" onclick="checkPin()">
-            Otwórz ❤️
-        </button>
+    <input
+        id="pin"
+        type="password"
+        maxlength="4"
+        placeholder="••••"
+    >
 
-        <div id="pinError" class="error"></div>
+    <br><br>
+
+    <button class="pink" onclick="checkPin()">
+        Otwórz ❤️
+    </button>
+
+    <div id="message"></div>
+
+</div>
+
+
+<!-- LOVE -->
+<div id="lovePage" class="box hidden">
+
+    <h1>Myszko 🥹❤️</h1>
+
+    <div class="question">
+        Kochasz mnie?
     </div>
-</section>
+
+    <button class="pink" onclick="yesLove()">
+        TAK ❤️
+    </button>
+
+    <button class="white" onclick="noLove()">
+        NIE
+    </button>
+
+</div>
 
 
-<!-- KOCHASZ MNIE -->
-<section id="loveScreen" class="screen">
-    <div class="card">
-        <h1>Myszko... 🥹❤️</h1>
+<!-- YES -->
+<div id="yesPage" class="box hidden">
 
-        <div class="question">
-            Kochasz mnie?
-        </div>
-
-        <button class="pink" onclick="loveYes()">
-            TAK ❤️
-        </button>
-
-        <button class="light" onclick="loveNo()">
-            NIE
-        </button>
+    <div class="love">
+        JA CIEBIE TEŻ<br>
+        MYSZKOOOO ❤️
     </div>
-</section>
 
+    <p>🥹❤️🥹❤️🥹</p>
 
-<!-- PO TAK -->
-<section id="yesScreen" class="screen">
-    <div class="card">
-        <div class="big-love">
-            JA CIEBIE TEŻ<br>
-            MYSZKOOOOO ❤️
-        </div>
+    <button class="pink" onclick="startGame()">
+        🎮 Zagraj w grę miłosną
+    </button>
 
-        <p>🥹❤️🥹❤️🥹</p>
-
-        <button class="pink" onclick="startQuiz()">
-            🎮 Zagraj w grę miłosną
-        </button>
-    </div>
-</section>
+</div>
 
 
 <!-- QUIZ -->
-<section id="quizScreen" class="screen">
-    <div class="card">
+<div id="quizPage" class="box hidden">
 
-        <h1>🎮 Gra miłosna ❤️</h1>
+    <h1>🎮 Gra miłosna ❤️</h1>
 
-        <p id="number"></p>
+    <p id="questionNumber"></p>
 
-        <div id="question" class="question"></div>
+    <div id="question" class="question"></div>
 
-        <div id="answers" class="answers"></div>
+    <div id="answers" class="answers"></div>
 
-        <div id="result"></div>
+    <p id="score">Punkty: 0</p>
 
-    </div>
-</section>
+</div>
 
 
 <script>
 
-/* =========================
-   PIN
-========================= */
+const PIN = "1234";
 
-const correctPIN = "1234";
-
-
-/* =========================
-   EKRANY
-========================= */
-
-function showScreen(id) {
-
-    document.querySelectorAll(".screen").forEach(function(screen) {
-        screen.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-}
-
-
-/* =========================
-   PIN
-========================= */
-
-function checkPin() {
-
-    const entered = document.getElementById("pin").value;
-
-    if (entered === correctPIN) {
-
-        document.getElementById("pinError").textContent = "";
-
-        showScreen("loveScreen");
-
-        hearts(20);
-
-    } else {
-
-        document.getElementById("pinError").textContent =
-            "Zły PIN 😭";
-
-    }
-}
-
-
-/* =========================
-   KOCHASZ MNIE
-========================= */
-
-function loveYes() {
-
-    showScreen("yesScreen");
-
-    hearts(40);
-    confetti(100);
-
-}
-
-
-function loveNo() {
-
-    showFloating("Okej 😭❤️", "bad");
-
-}
-
-
-/* =========================
-   PYTANIA
-========================= */
+let questionIndex = 0;
+let points = 0;
 
 const questions = [
 
     {
-        question: "Jak nazywam Tereskę? 🐭",
+        text: "Jak nazywam Tereskę? 🐭",
         answers: [
             "Myszką ❤️",
             "Kaczką 🦆",
@@ -418,7 +294,7 @@ const questions = [
     },
 
     {
-        question: "W co lubimy grać? 🎮",
+        text: "W co lubimy grać? 🎮",
         answers: [
             "Roblox 🎮",
             "Minecraft ⛏️",
@@ -429,18 +305,18 @@ const questions = [
     },
 
     {
-        question: "Co najbardziej lubię dostawać od Tereski? 📸",
+        text: "Co najbardziej lubię dostawać od Tereski? 📸",
         answers: [
             "Zdjęcia ❤️",
-            "Kamienie 🪨",
+            "Kartofle 🥔",
             "Zeszyty 📚",
-            "Kartofle 🥔"
+            "Kamienie 🪨"
         ],
         correct: 0
     },
 
     {
-        question: "Jak bardzo ją kocham? ❤️",
+        text: "Jak bardzo ją kocham? ❤️",
         answers: [
             "Bardzo ❤️",
             "Trochę 😐",
@@ -453,169 +329,186 @@ const questions = [
 ];
 
 
-let current = 0;
-let score = 0;
-
-
-/* =========================
-   START
-========================= */
-
-function startQuiz() {
-
-    current = 0;
-    score = 0;
-
-    showScreen("quizScreen");
-
-    loadQuestion();
+function hideAll() {
+    document.getElementById("pinPage").classList.add("hidden");
+    document.getElementById("lovePage").classList.add("hidden");
+    document.getElementById("yesPage").classList.add("hidden");
+    document.getElementById("quizPage").classList.add("hidden");
 }
 
 
-/* =========================
-   ŁADOWANIE PYTANIA
-========================= */
+function checkPin() {
 
-function loadQuestion() {
+    const enteredPin =
+        document.getElementById("pin").value;
 
-    const q = questions[current];
+    if (enteredPin === PIN) {
 
-    document.getElementById("number").textContent =
-        "Pytanie " + (current + 1) + " / " + questions.length;
+        hideAll();
+
+        document.getElementById("lovePage")
+            .classList.remove("hidden");
+
+        createHearts(15);
+
+    } else {
+
+        document.getElementById("message").textContent =
+            "Zły PIN 😭";
+
+    }
+}
+
+
+function yesLove() {
+
+    hideAll();
+
+    document.getElementById("yesPage")
+        .classList.remove("hidden");
+
+    createHearts(40);
+    createConfetti(80);
+
+}
+
+
+function noLove() {
+
+    document.getElementById("message").textContent =
+        "Ej no 😭❤️";
+
+}
+
+
+function startGame() {
+
+    questionIndex = 0;
+    points = 0;
+
+    hideAll();
+
+    document.getElementById("quizPage")
+        .classList.remove("hidden");
+
+    showQuestion();
+
+}
+
+
+function showQuestion() {
+
+    const q = questions[questionIndex];
+
+    document.getElementById("questionNumber").textContent =
+        "Pytanie " +
+        (questionIndex + 1) +
+        " / " +
+        questions.length;
 
     document.getElementById("question").textContent =
-        q.question;
+        q.text;
 
-    const answers = document.getElementById("answers");
+    document.getElementById("score").textContent =
+        "Punkty: " + points;
+
+    const answers =
+        document.getElementById("answers");
 
     answers.innerHTML = "";
 
-    document.getElementById("result").textContent = "";
 
+    for (let i = 0; i < q.answers.length; i++) {
 
-    q.answers.forEach(function(answer, index) {
+        const button =
+            document.createElement("button");
 
-        const button = document.createElement("button");
-
-        button.textContent = answer;
+        button.textContent =
+            q.answers[i];
 
         button.onclick = function() {
-            answerQuestion(index, button);
+            answer(i, button);
         };
 
         answers.appendChild(button);
-
-    });
+    }
 }
 
 
-/* =========================
-   ODPOWIEDŹ
-========================= */
+function answer(selected, button) {
 
-function answerQuestion(index, clickedButton) {
-
-    const q = questions[current];
+    const q = questions[questionIndex];
 
     const buttons =
         document.querySelectorAll("#answers button");
 
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+    }
 
-    buttons.forEach(function(button) {
-        button.disabled = true;
-    });
 
+    if (selected === q.correct) {
 
-    if (index === q.correct) {
+        points++;
 
-        score++;
+        button.classList.add("correct");
 
-        clickedButton.classList.add("correct");
-
-        showFloating("DOBRZE! ❤️", "good");
-
-        hearts(15);
+        createHearts(12);
 
     } else {
 
-        score--;
+        points--;
 
-        clickedButton.classList.add("wrong");
+        button.classList.add("wrong");
 
         buttons[q.correct].classList.add("correct");
 
-        showFloating("-1 PUNKT 😭", "bad");
-
     }
+
+
+    document.getElementById("score").textContent =
+        "Punkty: " + points;
 
 
     setTimeout(function() {
 
-        current++;
+        questionIndex++;
 
-        if (current < questions.length) {
+        if (questionIndex < questions.length) {
 
-            loadQuestion();
+            showQuestion();
 
         } else {
 
-            finishQuiz();
+            endGame();
 
         }
 
-    }, 1200);
+    }, 1000);
+
 }
 
 
-/* =========================
-   KONIEC
-========================= */
+function endGame() {
 
-function finishQuiz() {
-
-    document.getElementById("number").textContent = "";
+    document.getElementById("questionNumber").textContent =
+        "Koniec! ❤️";
 
     document.getElementById("question").textContent =
-        "Koniec gry! ❤️";
+        "Twój wynik: " + points + " punktów";
 
     document.getElementById("answers").innerHTML = "";
 
+    document.getElementById("score").textContent =
+        "Myszka ❤️";
 
-    if (score === questions.length) {
+    createHearts(50);
+    createConfetti(100);
 
-        document.getElementById("result").innerHTML =
-            "💖 " + score + "/" + questions.length +
-            "<br><br>" +
-            "MYSZKO, ZNASZ MNIE ZA DOBRZE 😭❤️";
-
-        confetti(180);
-        hearts(50);
-
-    } else if (score >= 2) {
-
-        document.getElementById("result").innerHTML =
-            "❤️ " + score + "/" + questions.length +
-            "<br><br>" +
-            "Całkiem dobrze, myszko 🥹❤️";
-
-        confetti(70);
-
-    } else {
-
-        document.getElementById("result").innerHTML =
-            "😭 " + score + "/" + questions.length +
-            "<br><br>" +
-            "Musimy więcej razem pograć ❤️";
-
-    }
 }
 
 
-/* =========================
-   SERDUSZKA
-========================= */
-
-function hearts(amount) {
+function createHearts(amount) {
 
     for (let i = 0; i < amount; i++) {
 
@@ -627,7 +520,9 @@ function hearts(amount) {
             heart.className = "heart";
 
             heart.textContent =
-                ["❤️","💕","💗","💖","💞"][Math.floor(Math.random() * 5)];
+                ["❤️", "💕", "💗", "💖", "💞"][
+                    Math.floor(Math.random() * 5)
+                ];
 
             heart.style.left =
                 Math.random() * 100 + "vw";
@@ -637,21 +532,18 @@ function hearts(amount) {
 
             document.body.appendChild(heart);
 
-
             setTimeout(function() {
                 heart.remove();
-            }, 6500);
+            }, 6000);
 
         }, i * 50);
+
     }
+
 }
 
 
-/* =========================
-   KONFETTI
-========================= */
-
-function confetti(amount) {
+function createConfetti(amount) {
 
     for (let i = 0; i < amount; i++) {
 
@@ -665,59 +557,26 @@ function confetti(amount) {
             piece.style.left =
                 Math.random() * 100 + "vw";
 
-            piece.style.backgroundColor =
+            piece.style.background =
                 "hsl(" +
                 Math.random() * 360 +
                 ", 80%, 60%)";
 
-            piece.style.width =
-                (5 + Math.random() * 9) + "px";
-
-            piece.style.height =
-                (5 + Math.random() * 9) + "px";
-
             piece.style.animationDuration =
-                (2 + Math.random() * 3) + "s";
+                (2 + Math.random() * 2) + "s";
 
             document.body.appendChild(piece);
 
-
             setTimeout(function() {
                 piece.remove();
-            }, 6000);
+            }, 5000);
 
-        }, i * 10);
+        }, i * 20);
+
     }
+
 }
 
-
-/* =========================
-   NAPIS
-========================= */
-
-function showFloating(text, type) {
-
-    const element =
-        document.createElement("div");
-
-    element.className =
-        "floating " + type;
-
-    element.textContent =
-        text;
-
-    document.body.appendChild(element);
-
-
-    setTimeout(function() {
-        element.remove();
-    }, 1100);
-}
-
-
-/* =========================
-   ENTER = PIN
-========================= */
 
 document.getElementById("pin").addEventListener(
     "keydown",
